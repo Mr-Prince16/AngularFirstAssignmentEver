@@ -1,0 +1,129 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Company Details</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" (click)="routeDepartment()">Department
+                        <span class="sr-only"></span>
+                    </a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" (click)="routeEmployee()">Employee</a>
+                </li>
+                
+               
+                <li class=" btn-primary nav-item text-white" role="button">
+                    <a class="nav-link" (click)="logout()">logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="d-flex">
+    <button (click) =" clickAddDepartment()" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"class="btn btn-success">Add Deparment</button>
+
+    <input type="number" [(ngModel)] = "id" name="id" placeholder="Search by Id"/>
+    <button class="btn btn-secondary" type="button" (click)= "searchDepartment(id)">
+      Search
+    </button>
+  </div>
+  <div class="d-flex">
+
+    
+  </div>
+
+  <table class="table mt-3">
+  <thead>
+  <tr>
+    <th scope="col">Deparment Id</th>
+    <th scope="col">Department Name</th>
+    <th scope="col">Department Number</th>
+    <th scope="col">Topic</th>
+    <th scope="col">Time</th>
+    <th scope="col">Image</th>
+   
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let row of departmentData">
+    <td>{{row.id}}</td>
+    <td>{{row.departmentName}}</td>
+    <td>{{row.departmentNumber}}</td>
+    <td>{{row.topic}}</td>
+    <!-- <td>{{row.timeMorning}}</td>
+    <td>{{row.timeEvening}}</td> -->
+    <td>{{row.time}}</td>
+    <td>
+      <img src="{{row.image}}" alt="" height="40px" width="40px">
+    </td>
+  <td>
+        <button type="button"  (click) ="onEdit(row)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-info">Edit</button>
+        <button type="button"  (click)= "deleteDepartment(row)" class="btn btn-danger mx-3">Delete</button>
+    </td> 
+  </tr>
+  </tbody>
+  </table>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+  <div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Deparment Details</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="departmentForms">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">DepartmentName : </label>
+        <input placeholder="DepartmentName" 
+         type="text" formControlName="departmentName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <p 
+  *ngIf=" (departmentForms.get('departmentName')?.touched)  && departmentName?.errors?.['required']" class="text-danger">DepartmentName is required</p>
+  <p *ngIf="departmentName?.errors?.['minlength']" class="text-danger">DepartmentName must be atleast 3 characters</p>
+      </div><div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">DepartmentNumber : </label>
+        <input type="mobile" placeholder="1234"  formControlName="departmentNumber" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <p 
+  *ngIf=" departmentForms.get('departmentNumber')?.touched && departmentNumber?.errors?.['required']" class="text-danger">DepartmentNumber is required</p>
+  <p *ngIf="departmentNumber?.errors?.['pattern']" class="text-danger">Please enter only digits</p>
+  <p *ngIf="departmentNumber?.errors?.['minlength']&&!departmentNumber?.errors?.['pattern']" class="text-danger">Minimum length must atleast be Four</p>
+  
+      </div>
+        
+          <div class="form-group">
+            <select  class="custom-select" formControlName="topic" name="topic">
+              <option selected>I am interested in</option>
+              <option *ngFor="let topic of topics">{{topic}}</option>
+            </select>
+           
+          </div>
+            <div>
+          <label>Timing</label>
+          <div class="radio" *ngFor="let time of times">
+            <label>
+              <input
+                type="radio"
+                formControlName="time"
+                [value]="time">{{ time }}
+            </label>
+          </div>
+
+          <div class="image-upload">
+            <img [src]="imageSrc" style="max-width:20px;max-height:20px"/>
+            <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />
+        </div> 
+          
+          </div>
+  <div>
+  <button  type="button" [disabled]="departmentForms.invalid" *ngIf ="showAdd" (click)= "postDepartmentDetails()" class="btn btn-primary">Add</button>
+  <button  type="button" [disabled]="departmentForms.invalid" *ngIf ="showUpdate" (click)= "updateDepartmentDetails()" class="btn btn-primary">Update</button>
+  </div>
+  
+  

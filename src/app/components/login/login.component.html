@@ -1,0 +1,32 @@
+
+<div class="card text-center">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+        <div class="text-center">
+            
+        </div>
+        <div class="text-center">
+            <h2>Welcome</h2>
+        </div>
+        <p style="color: lightslategray; text-align: center;">
+            Please enter your login
+            details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <form [formGroup]="loginForms" (ngSubmit)="onSubmit()">
+       
+            <div class="col md-6">
+                <div class="col">
+                  <input type="email" id="email" class="form-control" placeholder="Email" aria-label="Email:" formControlName="email"
+                  name="email" />
+                </div>
+                <div class="col">
+                  <input type="password" id="password" class="form-control" placeholder="Password" aria-label="Password" formControlName="password" name="password" />
+                </div>
+              </div>
+            <input type="submit" class="btn btn-primary w-30" value="Login" name="">
+        </form>
+    </div>
+    <div class="card-footer text-right mb-3 w-20">
+        <small><a routerLink="../forget-password">Forgot Password</a></small>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="card">
+    <div>
+    <div>
+    <div>
+      <h5 class="card-title" id="exampleModalLabel">Employee Details</h5>
+    </div>
+    <div class="card-body">
+        <div [formGroup]="addemployeeform">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">FirstName : </label>
+              <input placeholder="FirstName" [class.is-invalid]="firstName?.invalid &&
+              firstName?.touched" type="text" formControlName="firstName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <small 
+      *ngIf="firstName?.errors?.['required']" class="text-danger">firstName is required</small>
+      <small *ngIf="firstName?.errors?.['minlength']" class="text-danger">FirstName must be atleast 3 characters</small>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">LastName : </label>
+              <input placeholder="LastName" [class.is-invalid]="lastName?.invalid &&
+              lastName?.touched" type="text" type="text" formControlName="lastName" class="form-control" id="exampleInputPassword1">
+              <small 
+      *ngIf="lastName?.errors?.['required']" class="text-danger">LastName is required</small>
+      <small *ngIf="lastName?.errors?.['minlength']" class="text-danger">lastName must be atleast 3 characters</small>
+
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">EmailAddress</label>
+                <input placeholder="xyz@gmail.com" [class.is-invalid]="email?.invalid &&
+                email?.touched" type="email" formControlName="email" class="form-control" id="exampleInputPassword1">
+                <small 
+                *ngIf="email?.errors?.['required']" class="text-danger">Email Id is required</small>
+                <small *ngIf="email?.errors?.['pattern']" class="text-danger">Email must be valid</small>
+          
+                
+              </div>
+              <div class="mb-3">
+                <label  for="exampleInputPassword1" class="form-label">Mobile Number</label>
+                <input placeholder="01234567890" [class.is-invalid]="mobile?.invalid &&
+                mobile?.touched" type="text" formControlName="mobile" class="form-control" id="exampleInputPassword1">
+                <small 
+      *ngIf="mobile?.errors?.['required']" class="text-danger">Mobile No. is required</small>
+      <small *ngIf="mobile?.errors?.['pattern']" class="text-danger">Mobile Number must be 10 digits</small>
+
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Salary</label>
+                <input placeholder="123456" [class.is-invalid]="salary?.invalid &&
+                salary?.touched" type="text" formControlName="salary" class="form-control" id="exampleInputPassword1">
+                <small 
+      *ngIf="salary?.errors?.['required']" class="text-danger">Salary is required</small>
+      <small class="text-danger" *ngIf="salary?.errors?.['pattern'] || salary?.errors?.['minlength']">Please enter only digits</small>
+              </div>
+              
+           
+        </div>
+    </div>
+    <div>
+      <button [disabled]="addemployeeform.invalid" type="button" *ngIf="isAdd"  (click)= "postEmployeeDetails()" class="btn btn-primary">Add</button>
+      <button [disabled]="addemployeeform.invalid" type="button" *ngIf="isUpdate" (click)= "postEmployeeDetails()" class="btn btn-primary">Update</button>
+    </div>
+    </div>
+    </div> 
+    </div>
+    
